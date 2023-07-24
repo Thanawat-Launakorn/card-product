@@ -1,6 +1,8 @@
 import "./globals.css";
 import type { Metadata } from "next";
 import { Prompt } from "next/font/google";
+import Layout from "@/components/layout";
+import AppCart from "@/providers/provider-cart";
 
 const prompt = Prompt({
   weight: "300",
@@ -19,8 +21,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={prompt.className}>
-      <body>{children}</body>
+    <html
+      lang="en"
+      className={prompt.className}
+      style={{ backgroundColor: "#FFFFFF" }}
+    >
+      <body>
+        <AppCart>
+          <Layout>{children}</Layout>
+        </AppCart>
+      </body>
     </html>
   );
 }
