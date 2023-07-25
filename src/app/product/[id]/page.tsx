@@ -53,7 +53,7 @@ export default function Product({}: Props) {
                 props={product}
                 onPressed={() => {
                   addCart(product, quantity);
-                  setQuantity(0);
+                  setQuantity(1);
                 }}
               />
             </div>
@@ -89,7 +89,7 @@ const CardElement: FC<{ props?: CardProps; onPressed: () => void }> = ({
 
       <div className="flex flex-col">
         <Label children="price" />
-        <b className="text-black text-xl ">${price}</b>
+        <b className="text-black text-xl ">${price?.toFixed(2)}</b>
       </div>
       <Divider />
       <div className="flex flex-col">

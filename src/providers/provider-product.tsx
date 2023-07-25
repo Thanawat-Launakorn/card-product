@@ -4,6 +4,7 @@ import React, { FC } from "react";
 
 type ContenxtProps = {
   products: IProduct[];
+
   filter: string;
   setFilter: (v: any) => void;
   setProducts: (products: IProduct[]) => void;

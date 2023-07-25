@@ -22,8 +22,8 @@ export const CFilter: FC<Props> = ({ category, isSkeleton, onPressed }) => {
           ))}
         </div>
       )}
-      <div className="flex flex-row items-center justify-between mb-5">
-        <div className="flex-row items-center overflow-x-scroll hidden sm:flex ">
+      <div className=" flex-row items-center justify-between mb-5 hidden sm:flex">
+        <div className="flex-row items-center overflow-x-scroll flex ">
           {category.map((cate) => (
             <Tag cate={cate} action={() => setFilter(cate)} key={cate} />
           ))}
@@ -37,8 +37,14 @@ export const CFilter: FC<Props> = ({ category, isSkeleton, onPressed }) => {
 };
 
 const Tag = ({ cate, action }: { cate: string; action?: () => void }) => {
+  const { filter } = useProduct();
   return (
-    <div className="bg-orange-200 rounded-md px-2 py-1 mr-5" onClick={action}>
+    <div
+      className={`${
+        filter === cate && "bg-gray-300"
+      } bg-orange-200 rounded-md px-2 py-1 mr-5 transition-all ease-linear delay-75`}
+      onClick={action}
+    >
       <div className="text-black font-bold text-xs sm:text-sm capitalize cursor-pointer">
         {cate}
       </div>

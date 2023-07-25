@@ -31,7 +31,7 @@ type actionProps = {
   event?: Event;
 };
 const AppCart: FC<ProviderProps> = ({ children }) => {
-  const [quantity, setQuantity] = React.useState<number>(0);
+  const [quantity, setQuantity] = React.useState<number>(1);
   const reducer = (state: ICart[], action: actionProps): ICart[] => {
     switch (action.type) {
       case "ADD":
