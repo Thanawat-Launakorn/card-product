@@ -1,17 +1,22 @@
 "use client";
 import React from "react";
+import { useRouter } from "next/navigation";
 import { CInfiniteScroll } from "@/components/display";
-import { useCart } from "@/providers/provider-cart";
 import { fetchProducts } from "@/services/https";
 import { IProduct } from "@/interface/product";
 import { CProduct, CSkeletonProduct } from "@/components/card";
 import { CFilter } from "@/components/display/c-filter";
 import getUnique from "@/utils/unique";
+import { useProduct } from "@/providers/provider-cart";
 
 export default function Index() {
-  const { products, setProducts } = useCart();
-  const [fetching, setFetching] = React.useState<boolean>(false);
+  const router = useRouter();
+  const { products, setProducts } = useProduct();
+  const [fetching, setFetching] = React.useState<boolean>(true);
 
+  const handleCart = (e: Event) => {
+    e.stopPropagation();
+  };
   React.useEffect(() => {
     const getProducts = async () => {
       setFetching(true);
@@ -41,8 +46,12 @@ export default function Index() {
           <CFilter category={getUnique(products.map((cat) => cat.category))} />
           <CInfiniteScroll
             items={products}
-            renderItems={({ item }: { item: IProduct }) => (
-              <CProduct props={item} />
+            renderItems={({ item, idx }: { item: IProduct; idx: number }) => (
+              <CProduct
+                props={item}
+                addCart={handleCart}
+                navigation={() => router.push(`/product/${idx + 1}`)}
+              />
             )}
           />
         </>

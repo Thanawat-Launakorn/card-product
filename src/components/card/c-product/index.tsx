@@ -4,10 +4,17 @@ import { StarFilled } from "@ant-design/icons";
 import { Typography } from "antd";
 import Image from "next/image";
 import React, { FC } from "react";
-export const CProduct: FC<{ props: IProduct }> = ({ props }) => {
+export const CProduct: FC<{
+  props: IProduct;
+  addCart: (v: any) => void;
+  navigation?: () => void;
+}> = ({ props, addCart, navigation }) => {
   const { title, description, image, price, rating } = props;
   return (
-    <div className="bg-white shadow-md rounded-md p-5 flex flex-col">
+    <div
+      className="bg-white shadow-sm rounded-md p-5 flex flex-col hover:shadow-xl transition-shadow ease-linear delay-75 cursor-pointer"
+      onClick={navigation}
+    >
       <center className="min-h-[350px] flex items-center justify-center">
         <Image
           alt="product-image"
@@ -26,7 +33,11 @@ export const CProduct: FC<{ props: IProduct }> = ({ props }) => {
       <Rating props={rating} />
       <div className="my-2 flex flex-row items-center justify-between">
         <h1 className="text-gray-900 font-extrabold text-xl">{`$${price}`}</h1>
-        <CButton onPressed={() => {}} children="Add to cart" />
+        <CButton
+          onPressed={addCart}
+          children="Add to cart"
+          color="bg-blue-700"
+        />
       </div>
     </div>
   );

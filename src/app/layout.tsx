@@ -2,7 +2,7 @@ import "./globals.css";
 import type { Metadata } from "next";
 import { Prompt } from "next/font/google";
 import Layout from "@/components/layout";
-import AppCart from "@/providers/provider-cart";
+import AppProduct from "@/providers/provider-cart";
 
 const prompt = Prompt({
   weight: "300",
@@ -27,9 +27,9 @@ export default function RootLayout({
       style={{ backgroundColor: "#FFFFFF" }}
     >
       <body>
-        <AppCart>
+        <AppProduct>
           <Layout>{children}</Layout>
-        </AppCart>
+        </AppProduct>
       </body>
     </html>
   );

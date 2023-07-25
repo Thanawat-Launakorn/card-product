@@ -16,7 +16,7 @@ type actionProps = {
   type: "SET";
   payload: IProduct[];
 };
-const AppCart: FC<ProviderProps> = ({ children }) => {
+const AppProduct: FC<ProviderProps> = ({ children }) => {
   const reducer = (state: IProduct[], action: actionProps) => {
     switch (action.type) {
       case "SET":
@@ -39,5 +39,5 @@ const AppCart: FC<ProviderProps> = ({ children }) => {
   );
 };
 
-export const useCart = () => React.useContext(Context);
-export default AppCart;
+export const useProduct = () => React.useContext(Context);
+export default AppProduct;

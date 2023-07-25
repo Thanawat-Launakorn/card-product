@@ -1,6 +1,6 @@
 import { IProduct } from "@/interface/product";
 import { FC } from "react";
-export const CSkeletonProduct: FC<{ props: IProduct }> = ({ props }) => {
+export const CSkeletonProduct: FC<{ props?: IProduct }> = ({ props }) => {
   return (
     <div
       role="status"

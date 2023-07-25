@@ -1,12 +1,18 @@
 import React, { FC } from "react";
+import { usePathname } from "next/navigation";
 import Container from "../container";
 
 type Props = {
   children: React.ReactNode;
 };
 const AppContent: FC<Props> = ({ children }) => {
+  const pathname = usePathname();
   return (
-    <Container className="flex min-h-screen flex-col bg-gray-100">
+    <Container
+      className={`flex flex-col ${
+        pathname === "/" ? "bg-gray-100" : "bg-white"
+      } `}
+    >
       {children}
     </Container>
   );

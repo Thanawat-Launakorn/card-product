@@ -8,7 +8,7 @@ type Props = {
 };
 const Layout: FC<Props> = ({ children }) => {
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="flex flex-col">
       <AppHeader />
       <AppContent>{children}</AppContent>
       <AppFooter />
