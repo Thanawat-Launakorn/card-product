@@ -12,7 +12,7 @@ import { useCart } from "@/providers/provider-cart";
 
 export default function Index() {
   const router = useRouter();
-  const { products, setProducts } = useProduct();
+  const { products, setProducts, filter } = useProduct();
   const { increaseCart } = useCart();
   const [fetching, setFetching] = React.useState<boolean>(true);
 
@@ -46,7 +46,7 @@ export default function Index() {
           <CFilter category={getUnique(products.map((cat) => cat.category))} />
           <CInfiniteScroll
             className="grid grid-cols-1 gap-5 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 "
-            items={products}
+            items={products.filter((e) => e.category.includes(filter))}
             renderItems={({ item, idx }: { item: IProduct; idx: number }) => (
               <CProduct
                 props={item}

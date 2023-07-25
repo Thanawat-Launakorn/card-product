@@ -1,3 +1,4 @@
+import { useProduct } from "@/providers/provider-product";
 import React, { FC } from "react";
 type Props = {
   category: string[];
@@ -5,6 +6,7 @@ type Props = {
   onPressed?: () => void;
 };
 export const CFilter: FC<Props> = ({ category, isSkeleton, onPressed }) => {
+  const { setFilter } = useProduct();
   return (
     <React.Fragment>
       {isSkeleton && (
@@ -20,10 +22,15 @@ export const CFilter: FC<Props> = ({ category, isSkeleton, onPressed }) => {
           ))}
         </div>
       )}
-      <div className="flex-row items-center mb-5 overflow-x-scroll hidden sm:flex">
-        {category.map((cate) => (
-          <Tag cate={cate} action={onPressed} key={cate} />
-        ))}
+      <div className="flex flex-row items-center justify-between mb-5">
+        <div className="flex-row items-center overflow-x-scroll hidden sm:flex ">
+          {category.map((cate) => (
+            <Tag cate={cate} action={() => setFilter(cate)} key={cate} />
+          ))}
+        </div>
+        <div>
+          <Tag cate="Clear" action={() => setFilter("")} />
+        </div>
       </div>
     </React.Fragment>
   );
