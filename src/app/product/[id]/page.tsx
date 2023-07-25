@@ -2,10 +2,12 @@
 import React, { FC } from "react";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
-import { IProduct } from "@/interface/product";
+import { ICart, IProduct } from "@/interface/product";
 import { Divider, Typography } from "antd";
 import { fetchProductById } from "@/services/https";
 import { CButton } from "@/components/button";
+import { CQuantity } from "@/components/display";
+import { useCart } from "@/providers/provider-cart";
 type Props = {};
 
 export default function Product({}: Props) {
@@ -13,7 +15,9 @@ export default function Product({}: Props) {
   const pathSplit = pathname.split("/");
   const id = pathSplit[2];
   const [fetching, setFetching] = React.useState<boolean>(true);
-  const [product, setProduct] = React.useState<IProduct>();
+  const [product, setProduct] = React.useState<ICart>();
+  const { addCart, quantity, setQuantity } = useCart();
+
   React.useEffect(() => {
     async function getProduct() {
       setFetching(true);
@@ -28,14 +32,14 @@ export default function Product({}: Props) {
   }, []);
   return (
     <React.Fragment>
-      <div className="flex flex-row justify-between items-start px-32 py-20">
+      <div className="grid grid-cols-1 lg:grid-cols-2 justify-items-center items-start lg:py-20 gap-5">
         {fetching ? (
           <>
             <Skekeleton />
           </>
         ) : (
           <>
-            <center className="min-h-[430px] flex items-center justify-center w-[55%]">
+            <center className="min-h-[430px] flex items-center justify-center">
               <Image
                 alt="product-image"
                 src={product ? product?.image : ""}
@@ -44,8 +48,14 @@ export default function Product({}: Props) {
                 className="object-cover scale-125"
               />
             </center>
-            <div className="w-[45%]">
-              <CardElement props={product} onPressed={() => {}} />
+            <div className="w-[350px] sm:w-auto md:w-[100%] lg:w-[90%] xl:w-[70%] xl:place-self-start">
+              <CardElement
+                props={product}
+                onPressed={() => {
+                  addCart(product, quantity);
+                  setQuantity(0);
+                }}
+              />
             </div>
           </>
         )}
@@ -59,7 +69,9 @@ const CardElement: FC<{ props?: CardProps; onPressed: () => void }> = ({
   props,
   onPressed,
 }) => {
-  const { title, price } = props || {};
+  const { title, price, quantity } = props || {};
+  const { quantity: number, setQuantity } = useCart();
+
   const Label = ({ children }: { children: string }) => (
     <h5 className="capitalize text-black font-bold text-base">{children} :</h5>
   );
@@ -67,10 +79,11 @@ const CardElement: FC<{ props?: CardProps; onPressed: () => void }> = ({
     <div className="rounded-md shadow-lg border-[1px] bg-white flex flex-col py-10 px-5 ">
       <Typography.Title
         level={3}
-        className="!text-orange-500"
+        className="!text-black"
         ellipsis={{ rows: 1, tooltip: true }}
       >
         {title}
+        {quantity}
       </Typography.Title>
       <Divider />
 
@@ -81,7 +94,13 @@ const CardElement: FC<{ props?: CardProps; onPressed: () => void }> = ({
       <Divider />
       <div className="flex flex-col">
         <Label children="Quantity" />
-        <b className="text-black text-xl">${price}</b>
+        <CQuantity
+          children={String(number)}
+          onIncrease={() => setQuantity((prev: number) => prev + 1)}
+          onDecrease={() =>
+            setQuantity((prev: number) => (prev > 1 ? prev - 1 : prev))
+          }
+        />
       </div>
       <Divider />
 
@@ -99,13 +118,13 @@ const Skekeleton = () => {
     <React.Fragment>
       <div
         role="status"
-        className="max-w-sm animate-pulse flex shadow-md rounded-md bg-gray-200 h-[430px] text-transparent w-[55%]"
+        className="max-w-sm animate-pulse flex shadow-md rounded-md bg-gray-200 h-[430px] text-transparent w-full"
       >
         image
       </div>
       <div
         role="status"
-        className="max-w-sm animate-pulse flex flex-col shadow-lg rounded-md bg-white py-10 px-5 border-[1px] w-[45%]"
+        className="max-w-sm animate-pulse flex flex-col shadow-lg rounded-md bg-white py-10 px-5 border-[1px] w-full"
       >
         <div className="bg-gray-200 h-[25px] rounded-full mb-1" />
         <Divider />

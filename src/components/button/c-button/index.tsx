@@ -1,10 +1,9 @@
-import { Button, ButtonProps, Typography } from "antd";
 import { FC } from "react";
 
 interface IButton {
   onPressed: (v: any) => void;
   children: string;
-  color: "bg-blue-700" | "bg-green-500";
+  color: "bg-blue-700" | "bg-green-500" | "bg-red-500";
 }
 
 export const CButton: FC<IButton> = ({ onPressed, children, color }) => {

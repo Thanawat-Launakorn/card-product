@@ -2,7 +2,8 @@ import "./globals.css";
 import type { Metadata } from "next";
 import { Prompt } from "next/font/google";
 import Layout from "@/components/layout";
-import AppProduct from "@/providers/provider-cart";
+import AppProduct from "@/providers/provider-product";
+import AppCart from "@/providers/provider-cart";
 
 const prompt = Prompt({
   weight: "300",
@@ -23,12 +24,14 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={prompt.className}
       style={{ backgroundColor: "#FFFFFF" }}
+      className="min-h-screen"
     >
       <body>
         <AppProduct>
-          <Layout>{children}</Layout>
+          <AppCart>
+            <Layout>{children}</Layout>
+          </AppCart>
         </AppProduct>
       </body>
     </html>

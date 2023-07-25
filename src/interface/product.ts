@@ -10,5 +10,8 @@ export interface IProduct {
   description: string;
   image: string;
   price: number;
-  rating: RateProps;
+  rating?: RateProps;
+  quantity: number;
 }
+
+export interface ICart extends IProduct {}

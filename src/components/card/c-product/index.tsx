@@ -32,7 +32,9 @@ export const CProduct: FC<{
       </Typography.Title>
       <Rating props={rating} />
       <div className="my-2 flex flex-row items-center justify-between">
-        <h1 className="text-gray-900 font-extrabold text-xl">{`$${price}`}</h1>
+        <h1 className="text-gray-900 font-extrabold text-xl">{`$${price.toFixed(
+          2
+        )}`}</h1>
         <CButton
           onPressed={addCart}
           children="Add to cart"
@@ -43,8 +45,8 @@ export const CProduct: FC<{
   );
 };
 
-const Rating: FC<{ props: { rate: number; count: number } }> = ({ props }) => {
-  const { count, rate } = props;
+const Rating: FC<{ props?: { rate: number; count: number } }> = ({ props }) => {
+  const { count, rate } = props || {};
   return (
     <div className="flex flex-row items-center text-xs">
       <div className="flex flex-row items-center">
