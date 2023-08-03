@@ -9,7 +9,7 @@ const AppContent: FC<Props> = ({ children }) => {
   const pathname = usePathname();
   return (
     <Container
-      className={`min-h-[630px] ${
+      className={`min-h-[630px] flex-grow ${
         pathname === "/cart" ? "bg-zinc-50" : "bg-white"
       } `}
     >

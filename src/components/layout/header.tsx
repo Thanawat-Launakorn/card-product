@@ -7,7 +7,7 @@ type Props = {};
 const AppHeader: FC<Props> = ({}) => {
   const router = useRouter();
   return (
-    <Layout.Header className="!px-10 sm:!px-20  sticky top-0 shadow-lg bg-white z-10 h-[80px]">
+    <Layout.Header className="flex-none !px-10 sm:!px-20  sticky top-0 shadow-lg bg-white z-10 h-[80px]">
       <div className="flex flex-row items-end justify-between">
         <Link href={"/"}>
           <Typography.Title
