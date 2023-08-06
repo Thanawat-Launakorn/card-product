@@ -16,7 +16,7 @@ const AppHeader: FC<Props> = ({}) => {
               fontWeight: "bold",
             }}
           >
-            My Shop
+           My Shop
           </Typography.Title>
         </Link>
 
